@@ -19,7 +19,7 @@ class Register extends StatelessWidget {
     return Scaffold(
         body: Container(
           padding: EdgeInsets.all(30.0),
-          child: Column(
+          child: ListView(
 
             children: [
               SizedBox(height: 30,),

@@ -22,6 +22,14 @@ class _TaskListState extends State<TaskList> {
   bool sortDate = false;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    Provider.of<TaskListProvider>(context, listen: false).getLocal();
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     return Container(

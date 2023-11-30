@@ -1,11 +1,9 @@
-import 'dart:convert';
-import 'dart:js_interop';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo/constants.dart';
 import 'package:todo/models/task.dart';
 import 'package:todo/models/task_list.dart';
+import 'package:todo/services/notification_service.dart';
 
 
 class AddTaskScreen extends StatefulWidget {
@@ -155,17 +153,27 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                 priority = priorityText.text;
                 dueDate = dueDateText.text;
 
+                Task task;
+
                 if(widget.type == "add"){
-                  Task task = Task(title: title, description: description, priority: priority, dueDate: dueDate,priorityValue: priorityValue);
+                  task = Task(title: title, description: description, priority: priority, dueDate: dueDate,priorityValue: priorityValue);
                   print( (  task.toJson() ) );
                   Provider.of<TaskListProvider>(context, listen: false).addTask(task);
                   Navigator.pop(context);
                 }
                 else{
-                  Task task = Task(title: title, description: description, priority: priority, dueDate: dueDate,priorityValue: priorityValue);
+                  task = Task(title: title, description: description, priority: priority, dueDate: dueDate,priorityValue: priorityValue);
                   Provider.of<TaskListProvider>(context, listen: false).updateTask(task, widget.index!);
                   Navigator.pop(context);
                 }
+
+                NotificationServices notification = NotificationServices();
+
+                notification.initialiseNotification();
+                
+                notification.sendNotification(task.title.toString(), "Hi task added, we remind you daily ");
+                notification.scheduleNotification(task.title.toString(),"Hi have you done your task, - " + task.description.toString());
+                
 
               },
             ),
