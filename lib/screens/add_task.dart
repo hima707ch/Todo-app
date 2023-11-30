@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:js_interop';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo/constants.dart';
@@ -62,9 +65,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             topRight: Radius.circular(20.0),
           ),
         ),
-        child: Column(
-
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: ListView(
           children: <Widget>[
             Text(
               'Add Task',
@@ -156,6 +157,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
 
                 if(widget.type == "add"){
                   Task task = Task(title: title, description: description, priority: priority, dueDate: dueDate,priorityValue: priorityValue);
+                  print( (  task.toJson() ) );
                   Provider.of<TaskListProvider>(context, listen: false).addTask(task);
                   Navigator.pop(context);
                 }

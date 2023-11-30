@@ -6,8 +6,20 @@ import 'package:provider/provider.dart';
 import 'package:todo/screens/login.dart';
 import 'package:todo/screens/register_user.dart';
 import 'package:todo/widgets/task_list.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async{
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+      options: FirebaseOptions(
+         apiKey: "AIzaSyD2QBkVQ3b96uyaH_xHd9RY4gn7c5ZOU40",
+        appId: "1:468832460917:android:adb88f5d4ed867b0d9983c",
+        messagingSenderId: "468832460917",
+         projectId: "todo-app-b3193",
+      )
+  );
+
   runApp(const MyApp());
 }
 
@@ -54,7 +66,7 @@ class HomePage extends StatelessWidget {
                 children: [
                   TextButton(
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Login()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Register()));
                     },
                     child: CircleAvatar(
                       child: Icon(

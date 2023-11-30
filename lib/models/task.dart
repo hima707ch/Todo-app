@@ -11,8 +11,14 @@ class Task extends ChangeNotifier{
 
   Task({this.title, this.description, this.priority, this.priorityValue, this.dueDate});
 
-  void updateTitle(String newTitle){
-    title = newTitle;
-    notifyListeners();
+  Map<String, dynamic> toJson() {
+    return {
+      'title': title,
+      'description': description,
+      'priority': priority,
+      'priorityValue': priorityValue,
+      'dueDate': dueDate,
+    };
   }
+
 }

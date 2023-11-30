@@ -1,5 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo/constants.dart';
+import 'package:todo/models/task_list.dart';
+import 'package:todo/screens/register_user.dart';
 
 class Login extends StatelessWidget {
   Login({super.key});
@@ -43,9 +47,32 @@ class Login extends StatelessWidget {
 
             ),
             SizedBox(height: 60,),
-            TextButton(onPressed: (){
-              print(email);
-            }, child: Text("   Submit   "), style: kButtonStyle,)
+            TextButton(onPressed: () async{
+              try {
+                UserCredential user = await FirebaseAuth.instance
+                    .signInWithEmailAndPassword(
+                    email: email!, password: password!);
+
+
+                Provider.of<TaskListProvider>(context,listen: false).setUid(user.user!.uid);
+
+                Navigator.pop(context);
+
+              }
+              catch(err){
+                print(err);
+              }
+            }, child: Text("   Submit   "), style: kButtonStyle,),
+            SizedBox(height: 10,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Need a account | "),
+                TextButton(onPressed: (){
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Register()));
+                }, child: Text("Register"))
+              ],
+            )
 
           ],
         ),

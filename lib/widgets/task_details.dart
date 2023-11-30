@@ -33,8 +33,7 @@ class TaskDetails extends StatelessWidget {
           topRight: Radius.circular(20.0),
         ),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: ListView(
         children: [
           SizedBox(height: 45),
           Text("ToDo", style: TextStyle(decoration: TextDecoration.none,color:Colors.black,fontWeight: FontWeight.w600, fontSize: 45),),
